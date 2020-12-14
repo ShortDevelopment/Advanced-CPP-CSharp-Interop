@@ -1,5 +1,7 @@
 ﻿
+Imports System.Runtime.ExceptionServices
 Imports System.Runtime.InteropServices
+Imports System.Security
 
 <ComVisible(True)>
 Public Class Form1
@@ -44,7 +46,12 @@ Public Class Form1
 
     End Sub
 
+    <HandleProcessCorruptedStateExceptions, SecurityCritical>
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        MsgBox($"CPP Event 2 Returns: {CPPEvents.Event2()}")
+        Try
+            MsgBox($"CPP Event 2 Returns: {CPPEvents.Event2()}")
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+        End Try
     End Sub
 End Class
